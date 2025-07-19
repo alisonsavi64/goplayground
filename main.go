@@ -1,14 +1,17 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+
+	"hello-world/handlers"
+	"hello-world/utils"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, "Hello from Go in Docker!")
-	})
+	utils.Log("Starting server on :8080")
 
-	http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", handlers.Hello)
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
